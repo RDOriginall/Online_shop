@@ -1,7 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from core import BaseModel
-from product import Discount
+from product import Discount, Product
+from django.core.validators import MinValueValidator
 # Create your models here.
 
 class OffCode(Discount):
@@ -21,4 +22,21 @@ class Order(BaseModel):
 
 
 class OrderItem(BaseModel):
-    pass
+    """
+    OrderItem model contains Items that the client wants to order
+    """
+    order = models.ForeignKey(to=Order, on_delete=models.CASCADE, related_name="items", 
+    verbose_name=_("Receipt"), help_text=_("Please select your order"))
+    product = models.ForeignKey(to=Product, on_delete=models.CASCADE, verbose_name=_("Product name"),
+    help_text=_("Please select Product Item to add"))
+    count = models.PositiveIntegerField(default=1, verbose_name=_("number of Order Items"), 
+    validators=[MinValueValidator(1)], help_text=_("How many Items would you like to order?"))
+    
+
+    @property
+    def total_price(self):
+        """
+        This method calculates total price of all Items that client wants to order
+        """
+
+        return self.count * self.product.final_price()
