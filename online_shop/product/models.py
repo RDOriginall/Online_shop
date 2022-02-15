@@ -39,7 +39,8 @@ class Product(BaseModel):
 
     name = models.CharField(max_length=30, verbose_name=_("Product name"),
     help_text=_("Please Enter product name"))
-    brand = models.CharField()
+    brand = models.CharField(max_length=30, verbose_name=_("Brand name"), 
+    help_text=_("Please Enter brand name"))
     price = models.FloatField(validators=[MinValueValidator(0)])
     image = models.imageFiels()
     category = models.ForeignKey(to=Category, on_delete=models.RESTRICT)
