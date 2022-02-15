@@ -49,8 +49,8 @@ class Product(BaseModel):
     help_text=_("Please Enter brand name"))
     price = models.FloatField(validators=[MinValueValidator(0)])
     image = models.imageFiels()
-    category = models.ForeignKey(to=Category, on_delete=models.RESTRICT)
-    discount = models.ForeignKey(to='Discount', on_delete=models.CASCADE)
+    category = models.ForeignKey(to=Category, on_delete=models.CASCADE)
+    discount = models.ForeignKey(to=Discount, on_delete=models.SET_NULL)
 
 
     @property
