@@ -10,6 +10,28 @@ class Category(BaseModel):
 
 
 
+
+class Discount(BaseModel):
+    """
+    Discount models decreases the price of a product
+    """
+    value = models.PositiveIntegerField()
+    type = models.CharField(max_length=10, choices=[('price', 'Price'), ('percent', 'Percent')])
+    max_price = models.PositiveIntegerField(null=True, blank=True)
+
+    def profit_value(self, price:int):
+        """
+        profit method calculates and returns the profit of the discount
+        """
+
+        if self.type == 'price':
+            return min(self.value, price)
+        else: # percent
+            raw_profit = int((self.value/100) * price)
+            return int(min(raw_profit, int(self.max_price))) if self.max_price else raw_profit
+
+
+
 class Product(BaseModel):
     """
     Product model contains details of a product
@@ -26,8 +48,8 @@ class Product(BaseModel):
 
     @property
     def final_price():
-        pass
-
-
-class Discount(models.Model):
-    pass
+        """
+        This method calculates final price of a product by considering its discount
+        """
+        return self.price - profit_value(self.price)
+        
