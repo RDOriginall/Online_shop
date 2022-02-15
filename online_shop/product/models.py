@@ -6,7 +6,13 @@ from django.core.validators import MinValueValidator
 # Create your models here.
 
 class Category(BaseModel):
-    pass
+    """
+    Category model contains details of categories
+    """
+
+    name = models.CharField(max_length=30, verbose_name=_("Category"),
+    help_text=_("Please Enter category name"))
+    root = models.ForeignKey(to="self", on_delete=models.CASCADE, null=True, blank=True)
 
 
 
