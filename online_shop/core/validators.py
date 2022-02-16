@@ -32,3 +32,15 @@ class Validators:
             pass
         else:
             raise ValidationError(_("Wrong input, correct input example: 09123456789"))
+
+
+    
+    def check_postal_code(self, code: str):
+        """
+        Validatin for postal code
+        """
+
+        if r.search(self.POSTAL_CODE_PATTERN, code):
+            pass
+        else:
+            raise ValidationError(_("postal code must be 10 digits"))
