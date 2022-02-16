@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import OffCode, Order, OrderItem
+from order.models import OffCode, Order, OrderItem
 # Register your models here.
 
 

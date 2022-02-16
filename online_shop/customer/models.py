@@ -1,22 +1,22 @@
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
-
+from django.utils.translation import gettext_lazy as _
+from core.models import BaseModel
 # Create your models here.
 
 
-class Customer(models.Model):
+class Customer(BaseModel):
     """
     customers only can see products, categories and make orders
     """
 
     # gonna compelete this model after learning about 'user' class
 
-class Address(modesls.Model):
+class Address(BaseModel):
     """
     Address model belongs to Customers and it contains Country, Province, City, Details and Postal code
     """
 
-    customer = models.ForeignKey(to=Customer, on_delete=modesls.RESTRICT)
+    customer = models.ForeignKey(to=Customer, on_delete=models.RESTRICT)
 
     country = models.CharField(max_length=30, default='Iran', verbose_name=_("country"),
     help_text=_("Please Enter your country(default: Iran)."))

@@ -1,8 +1,9 @@
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
-from core import BaseModel
-from product import Discount, Product
+from django.utils.translation import gettext_lazy as _
+from core.models import BaseModel
+from product.models import Discount, Product
 from django.core.validators import MinValueValidator
+from customer.models import Customer
 # Create your models here.
 
 class OffCode(Discount):

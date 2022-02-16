@@ -1,6 +1,6 @@
 from django.db import models
-from core import BaseModel
-from django.utils.translation import ugettext_lazy as _
+from core.models import BaseModel
+from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinValueValidator
 
 # Create your models here.
@@ -48,9 +48,9 @@ class Product(BaseModel):
     brand = models.CharField(max_length=30, verbose_name=_("Brand name"), 
     help_text=_("Please Enter brand name"))
     price = models.FloatField(validators=[MinValueValidator(0)])
-    image = models.imageFiels()
+    image = models.ImageField()
     category = models.ForeignKey(to=Category, on_delete=models.CASCADE)
-    discount = models.ForeignKey(to=Discount, on_delete=models.SET_NULL)
+    discount = models.ForeignKey(to=Discount, on_delete=models.SET_NULL, null=True)
 
 
     @property
