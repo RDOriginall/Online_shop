@@ -4,7 +4,9 @@ from django.db import models
 
 
 class BaseManager(models.Manager):
-
+    """
+    Basic class Manager for Customizig queryset and filtered by delete
+    """
     def full_archive(self):
         return super().get_queryset()
 
@@ -13,6 +15,9 @@ class BaseManager(models.Manager):
 
 
 class BaseModel(models.Model):
+    """
+    All other classes will inheritance from Basic model class
+    """
     class Meta:
         abstract = True
 
