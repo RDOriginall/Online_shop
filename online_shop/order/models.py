@@ -17,6 +17,9 @@ class OffCode(Discount):
 
 
 class Order(BaseModel):
+    """
+    Order model is kinda the cart or the 'Receipt' of total OrderItems
+    """
     total_price = models.FloatField(verbose_name=_("Total price"), validators=[MinValueValidator(0)])
     final_price = models.FloatField(verbose_name=_("Final proce"), validators=[MinValueValidator(0)])
     customer = models.ForeignKey(to=Customer, verbose_name=_("customer cart"), on_delete=models.CASCADE)
