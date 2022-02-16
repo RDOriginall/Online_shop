@@ -17,9 +17,12 @@ class OffCode(Discount):
 
 
 class Order(BaseModel):
-    # total_price = models.FloatField(verbose_name=_("Total price"), validators=[MinValueValidator(0)])
-    # final_price = models.FloatField(verbose_name=_("Final proce"), validators=[MinValueValidator(0)])
-    pass
+    total_price = models.FloatField(verbose_name=_("Total price"), validators=[MinValueValidator(0)])
+    final_price = models.FloatField(verbose_name=_("Final proce"), validators=[MinValueValidator(0)])
+    customer = models.ForeignKey(to=Customer, verbose_name=_("customer cart"), on_delete=models.CASCADE)
+    status = models.CharField(max_length=1, default='U', verbose_name=_("Order Status"),
+    choices=[('P', _('Paid')), ('U', _('Unpaid')), ('C', _('Canceled'))])
+
 
 
 class OrderItem(BaseModel):
