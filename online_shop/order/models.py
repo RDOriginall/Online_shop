@@ -44,7 +44,7 @@ class OrderItem(BaseModel):
     def item_total_price(self):
         """
         This method calculates total price of an Item that client wants to order
-        by considering the number of that item
+        by considering the number of that item considering discount
         """
 
         return self.count * self.product.final_price()
