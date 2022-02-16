@@ -12,10 +12,23 @@ class Validators:
     POSTAL_CODE_PATTERN = r"^([0-9]{10})$"
 
     
-    def start_with_letter(value: str):
+    def start_with_letter(self, value: str):
+        """
+        This method checks if the input is starting with a letter or not
+        """
         if not value[0].isalpha():
             raise Exception(_("This text should start with Letters"))
         else:
             pass
 
     
+    
+    def check_phone_number(self, phone: str):
+        """
+        Validation for phone numbers, EXAMPLE: 09123456789
+        """
+
+        if r.search(self.PHONE_NUMBER_PATTERN, phone):
+            pass
+        else:
+            raise ValidationError(_("Wrong input, correct input example: 09123456789"))
