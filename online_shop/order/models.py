@@ -17,8 +17,9 @@ class OffCode(Discount):
 
 
 class Order(BaseModel):
+    # total_price = models.FloatField(verbose_name=_("Total price"), validators=[MinValueValidator(0)])
+    # final_price = models.FloatField(verbose_name=_("Final proce"), validators=[MinValueValidator(0)])
     pass
-
 
 
 class OrderItem(BaseModel):
@@ -34,9 +35,10 @@ class OrderItem(BaseModel):
     
 
     @property
-    def total_price(self):
+    def item_total_price(self):
         """
-        This method calculates total price of all Items that client wants to order
+        This method calculates total price of an Item that client wants to order
+        by considering the number of that item
         """
 
         return self.count * self.product.final_price()
