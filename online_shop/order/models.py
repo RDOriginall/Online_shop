@@ -37,7 +37,7 @@ class OrderItem(BaseModel):
     
 
     @property
-    def item_total_price(self):
+    def item_final_price(self):
         """
         This method calculates total price of an Item that client wants to order
         by considering the number of that item considering discount
