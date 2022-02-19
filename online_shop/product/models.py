@@ -15,9 +15,7 @@ class Category(BaseModel):
     root = models.ForeignKey(to="self", on_delete=models.CASCADE, null=True, blank=True)
 
 
-
-
-class Discount(BaseModel):
+class AbstractDiscount(BaseModel):
     """
     Discount models decreases the price of a product
     """
@@ -36,6 +34,25 @@ class Discount(BaseModel):
             raw_profit = int((self.value/100) * price)
             return int(min(raw_profit, int(self.max_price))) if self.max_price else raw_profit
 
+    class Meta:
+        abstract = True
+
+
+
+class Discount(AbstractDiscount):
+    pass
+
+
+
+class OffCode(AbstractDiscount):
+    """
+    Off code is a code that makes a total discount on Order model
+    """
+    code = models.CharField(max_length=10, unique=True, verbose_name=_("Discount code"),
+    help_text=_("Please Enter Off code"))
+    users = models.ManyToManyField(to=Customer, related_name="codes", default=None,
+    verbose_name=_("User Off code"), help_text=_("which users have used this code?"))
+    
 
 
 class Product(BaseModel):
@@ -48,7 +65,7 @@ class Product(BaseModel):
     brand = models.CharField(max_length=30, verbose_name=_("Brand name"), 
     help_text=_("Please Enter brand name"))
     price = models.FloatField(validators=[MinValueValidator(0)])
-    image = models.ImageField()
+    image = models.ImageField(null=True)
     category = models.ForeignKey(to=Category, on_delete=models.CASCADE)
     discount = models.ForeignKey(to=Discount, on_delete=models.SET_NULL, null=True)
 
