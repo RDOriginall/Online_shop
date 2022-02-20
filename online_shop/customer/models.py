@@ -15,7 +15,7 @@ class Customer(models.Model):
     fname = models.CharField(max_length=30, verbose_name=_("First Name"), help_text=_("Please Enter your first name"))
     lname = models.CharField(max_length=30, verbose_name=_("Last Name"), help_text=_("Please Enter your last name"))
     username = models.CharField(max_length=30, unique=True, verbose_name=_("Username"), help_text=_("Please Enter your username"))
-    password = models.CharField(max_length=30)
+ 
 
 
     def __str__(self):
