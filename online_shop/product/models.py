@@ -88,7 +88,7 @@ class Product(BaseModel):
 
     category = models.ForeignKey(to=Category, on_delete=models.SET_NULL, null=True)
 
-    discount = models.ForeignKey(to=Discount, on_delete=models.SET_NULL, null=True)
+    discount = models.ForeignKey(to=Discount, on_delete=models.SET_NULL, null=True, blank=True)
 
 
     @property
