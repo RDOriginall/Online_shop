@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -141,3 +142,14 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'core.User'
+
+JAZZMIN_SETTINGS = {
+    # title of the window (Will default to current_admin_site.site_title if absent or None)
+    "site_title": "Dashboard",
+    # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+    "site_header": "Library",
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "materia",
+}
