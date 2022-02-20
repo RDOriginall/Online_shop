@@ -34,15 +34,17 @@ class BaseModel(models.Model):
         self.save()
 
 
-class MyUserManager(UserManager):
-    def create_superuser(self, username=None, email=None, password=None, **extra_fields):
-        username = extra_fields['phone']
-        return super().create_superuser(username, email, password, **extra_fields)
+# class MyUserManager(UserManager):
+#    def create_superuser(self, username=None, email=None, password=None, **extra_fields):
+#        username = extra_fields['phone']
+#        return super().create_superuser(username, email, password, **extra_fields)
 
 
 class User(AbstractUser):
-    objects = MyUserManager()
+    pass
 
-    phone = models.CharField(max_length=13, unique=True)
-    USERNAME_FIELD = 'phone'
+#    objects = MyUserManager()
+
+#    phone = models.CharField(max_length=13, unique=True)
+#    USERNAME_FIELD = 'phone'
 
