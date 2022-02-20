@@ -22,6 +22,9 @@ class Order(BaseModel):
     class Meta:
         unique_together = [['off_code', 'customer']] # Just once Time Use from OffCode
 
+    def __str__(self):
+        return self.customer
+    
 
 
 class OrderItem(BaseModel):
@@ -44,3 +47,7 @@ class OrderItem(BaseModel):
         """
 
         return self.count * self.product.final_price()
+
+    def __str__(self):
+        return self.product
+    
