@@ -53,7 +53,7 @@ class Address(BaseModel):
     help_text=_("Please Enter details of yout address in Persian(like street, allay and so on...)"))
 
     postal_code = models.CharField(max_length=10, unique=True, verbose_name=_("Zip code"), 
-    validators=[check_postal_code], help_text=_("Please Enter your zip code"))
+    validators=[Validators.check_postal_code], help_text=_("Please Enter your zip code"))
 
     def __str__(self):
         return f"Country: {self.country_en} Province: {self.province_en} City: {self.city_en}"
