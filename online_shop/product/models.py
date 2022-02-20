@@ -2,7 +2,7 @@ from django.db import models
 from core.models import BaseModel
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinValueValidator
-
+from customer.models import Customer
 # Create your models here.
 
 class Category(BaseModel):
@@ -10,9 +10,17 @@ class Category(BaseModel):
     Category model contains details of categories
     """
 
-    name = models.CharField(max_length=30, verbose_name=_("Category"),
-    help_text=_("Please Enter category name"))
-    root = models.ForeignKey(to="self", on_delete=models.CASCADE, null=True, blank=True)
+    name_en = models.CharField(max_length=30, verbose_name=_("Category in english"),
+    help_text=_("Please Enter category name in English"))
+
+    name_fa = models.CharField(max_length=30, verbose_name=_("Category in persian"),
+    help_text=_("Please Enter category name in Persian"))
+    
+    root = models.ForeignKey(to="self", on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return self.name_en
+    
 
 
 class AbstractDiscount(BaseModel):
@@ -40,7 +48,10 @@ class AbstractDiscount(BaseModel):
 
 
 class Discount(AbstractDiscount):
-    pass
+    
+    def __str__(self):
+        return f"{self.type}, {self.value}"
+    
 
 
 
@@ -50,8 +61,7 @@ class OffCode(AbstractDiscount):
     """
     code = models.CharField(max_length=10, unique=True, verbose_name=_("Discount code"),
     help_text=_("Please Enter Off code"))
-    users = models.ManyToManyField(to=Customer, related_name="codes", default=None,
-    verbose_name=_("User Off code"), help_text=_("which users have used this code?"))
+    
     
 
 
@@ -60,13 +70,24 @@ class Product(BaseModel):
     Product model contains details of a product
     """
 
-    name = models.CharField(max_length=30, verbose_name=_("Product name"),
-    help_text=_("Please Enter product name"))
-    brand = models.CharField(max_length=30, verbose_name=_("Brand name"), 
-    help_text=_("Please Enter brand name"))
+    name_en = models.CharField(max_length=30, verbose_name=_("Product name in english"),
+    help_text=_("Please Enter product name in english"))
+
+    name_fa = models.CharField(max_length=30, verbose_name=_("Product name in persian"),
+    help_text=_("Please Enter product name in persian"))
+
+    brand_en = models.CharField(max_length=30, verbose_name=_("Brand name in english"), 
+    help_text=_("Please Enter brand name in english"))
+
+    brand_fa = models.CharField(max_length=30, verbose_name=_("Brand name in persian"), 
+    help_text=_("Please Enter brand name in persian"))
+
     price = models.FloatField(validators=[MinValueValidator(0)])
+
     image = models.ImageField(null=True)
-    category = models.ForeignKey(to=Category, on_delete=models.CASCADE)
+
+    category = models.ForeignKey(to=Category, on_delete=models.SET_NULL, null=True)
+
     discount = models.ForeignKey(to=Discount, on_delete=models.SET_NULL, null=True)
 
 
@@ -77,3 +98,6 @@ class Product(BaseModel):
         """
         return self.price - profit_value(self.price)
         
+    def __str__(self):
+        return self.name_en
+    
