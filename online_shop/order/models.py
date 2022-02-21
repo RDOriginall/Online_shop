@@ -48,6 +48,15 @@ class OrderItem(BaseModel):
 
         return self.count * self.product.final_price()
 
+    @property
+    def item_total_price(self):
+        """
+        This method is made to return total price of an order item 
+        without calculating discounts
+        """
+
+        return self.count * self.product.raw_price()
+
     def __str__(self):
         return self.product
     
