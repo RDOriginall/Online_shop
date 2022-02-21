@@ -59,6 +59,8 @@ class OffCode(AbstractDiscount):
     """
     Off code is a code that makes a total discount on Order model
     """
+    title = models.CharField(max_length=30, verbose_name=_("Disscount title"), help_text=_("What is this discount for?"))
+
     code = models.CharField(max_length=10, unique=True, verbose_name=_("Discount code"),
     help_text=_("Please Enter Off code"))
     
@@ -84,7 +86,7 @@ class Product(BaseModel):
 
     price = models.FloatField(validators=[MinValueValidator(0)])
 
-    image = models.ImageField(null=True)
+    image = models.ImageField(null=True, upload_to='../static/images')
 
     category = models.ForeignKey(to=Category, on_delete=models.SET_NULL, null=True)
 
@@ -92,12 +94,21 @@ class Product(BaseModel):
 
 
     @property
-    def final_price():
+    def final_price(self):
         """
         This method calculates final price of a product by considering its discount
         """
         return self.price - profit_value(self.price)
         
+
+    @property
+    def raw_price(self):
+        """
+        This method just returns the price of product to be used in OrderItem method
+        """
+        return self.price
+
+    
     def __str__(self):
         return self.name_en
     
