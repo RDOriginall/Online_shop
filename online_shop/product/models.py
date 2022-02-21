@@ -86,7 +86,7 @@ class Product(BaseModel):
 
     price = models.FloatField(validators=[MinValueValidator(0)])
 
-    image = models.ImageField(null=True, upload_to='../static/images')
+    image = models.ImageField(null=True, upload_to='static/images')
 
     category = models.ForeignKey(to=Category, on_delete=models.SET_NULL, null=True)
 
