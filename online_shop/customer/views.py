@@ -48,3 +48,6 @@ def register(response):
 class CustomerLoginView(LoginView):
     template_name = 'customer/loginview_form.html'
 
+
+def home(request):
+    return render(request, "home.html")
