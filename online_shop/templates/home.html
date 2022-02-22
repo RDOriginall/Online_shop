@@ -1,0 +1,11 @@
+{% extends 'core/_base.html' %}
+
+{% block body %}
+
+<h1 class="mt-2">Home page</h1>
+<hr class="mt-0 mb-4">
+{% if user.is_authenticated %}
+    <h4>Welcom</h4> {% user.name %}
+{% else %}
+    <p>Login <a href="/customer/loginview_form">here</a></p>
+{% endblock body %}
