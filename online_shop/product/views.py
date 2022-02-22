@@ -14,3 +14,8 @@ class ProductListView(generic.ListView):
     model = Product
     fields = '__all__'
     template_name = 'product/product_list.html'
+
+class ProductDetailView(generic.DetailView):
+    model = Product
+    fields = "__all__"
+    template_name = "product/product_detail.html"
