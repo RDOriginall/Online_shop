@@ -32,9 +32,9 @@ def contact(request):
             return HttpResponse("Please try again!")
 
 
-def register(response):
-    if response.method == "POST":
-        form = RegisterForm(response.POST)
+def register(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
         
@@ -42,7 +42,7 @@ def register(response):
     else:
         form = RegisterForm()
 
-    return render(response, "customer/register.html", {"form":form})
+    return render(request, "customer/register.html", {"form":form})
 
 
 class CustomerLoginView(LoginView):
