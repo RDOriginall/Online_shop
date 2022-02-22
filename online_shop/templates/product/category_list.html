@@ -1,0 +1,33 @@
+{% extends 'core/_base.html' %}
+
+{% block head %}
+  <link rel="stylesheet" href="../../static/product/category_cards.css">
+{% endblock head %}
+
+
+{% block body %}
+
+<h1 style="color: black">categories</h1>
+
+{% endblock body %}
+
+<ul>
+    {% for c in category_list %}
+    <div class="conatiner">
+        <div class="wrap">
+            
+            <div class="box one">
+                <div class="date">
+                    <h4>6/29/18</h4>
+                </div>
+                <h1>CREATIVITY</h1>
+                <div class="poster p1">
+                    <h4>Z</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <h4>No categories yet</h4>
+    {% endfor %}
+</ul>
