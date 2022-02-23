@@ -6,7 +6,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from product.models import Product, Category
-from product.serializers import ProductSerializer
+from product.serializers import ProductSerializer, CategorySerializer
 
 from django.views import generic
 
@@ -45,3 +45,12 @@ class ProductListApi(generics.ListCreateAPIView):
 class ProductDetailApi(generics.RetrieveUpdateDestroyAPIView): 
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
+
+
+class CategoryListApi(generics.ListCreateAPIView):
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()
+
+class CategoryDetailApi(generics.RetrieveUpdateDestroyAPIView): 
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()
