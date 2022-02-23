@@ -11,7 +11,6 @@ class ContactForm(forms.Form):
         return f"user:{self.name} says:\n{self.comment}"
 
 class RegisterForm(UserCreationForm):
-    username = forms.CharField(max_length=30, required=True)
 
     class Meta:
         model = User
