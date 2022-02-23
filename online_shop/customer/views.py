@@ -8,6 +8,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth.views import LoginView
 from customer.forms import RegisterForm
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
 
 """
 def create_message(request):
@@ -32,17 +34,17 @@ def contact(request):
             return HttpResponse("Please try again!")
 
 
-def register(request):
-    if request.method == "POST":
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
+#def register(request):
+#    if request.method == "POST":
+#        form = RegisterForm(request.POST)
+#        if form.is_valid():
+#            form.save()
         
-        return redirect("customer/lognview_form.html")
-    else:
-        form = RegisterForm()
+#        return redirect("customer/lognview_form.html")
+#    else:
+#        form = RegisterForm()
 
-    return render(request, "customer/register.html", {"form":form})
+#    return render(request, "customer/register.html", {"form":form})
 
 
 class CustomerLoginView(LoginView):
@@ -51,3 +53,10 @@ class CustomerLoginView(LoginView):
 
 def home(request):
     return render(request, "home.html")
+
+
+class Register(CreateView):
+    template_name = 'customer/register.html'
+    success_url = reverse_lazy('login')
+    form_class = RegisterForm
+    success_message = "Your profile was created successfully"
