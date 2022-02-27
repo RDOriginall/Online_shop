@@ -34,17 +34,17 @@ def contact(request):
             return HttpResponse("Please try again!")
 
 
-#def register(request):
-#    if request.method == "POST":
-#        form = RegisterForm(request.POST)
-#        if form.is_valid():
-#            form.save()
+def register(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
         
-#        return redirect("customer/lognview_form.html")
-#    else:
-#        form = RegisterForm()
+        return redirect("login")
+    else:
+        form = RegisterForm()
 
-#    return render(request, "customer/register.html", {"form":form})
+    return render(request, "customer/register.html", {"form":form})
 
 
 class CustomerLoginView(LoginView):
@@ -55,8 +55,58 @@ def home(request):
     return render(request, "home.html")
 
 
-class Register(CreateView):
-    template_name = 'customer/register.html'
-    success_url = reverse_lazy('login')
-    form_class = RegisterForm
-    success_message = "Your profile was created successfully"
+#class Register(CreateView):
+#    template_name = 'customer/register.html'
+#    success_url = reverse_lazy('login')
+#    form_class = RegisterForm
+#    success_message = "Your profile was created successfully"
+
+
+from customer.permissions import CustomerPermission
+from customer.serializer import CustomerSerializer, AddressSerializer
+from rest_framework import mixins, generics, authentication
+from rest_framework.decorators import APIView
+from rest_framework import permissions
+from customer.models import Customer, Address
+
+
+class CustomerListApi(APIView):
+    def get(self, request):
+        customer_serializer = CustomerSerializer(Customer.objects.all(), many=True)
+        return Response(customer_serializer.data, status=200)
+
+    def post(self, request):
+        customer_serializer = CustomerSerializer(data=request.POST)
+        if cutomer_serializer.is_valid():
+            new_customer = customer_serializer.save()
+            return Response({'new_customer_id': new_customer.id}, status=201)
+        else:
+            return Response({'errors': customer_serializer.errors}, status=400)
+
+
+class AddressListApi(APIView):
+    def get(self, request):
+        address_serializer = AddressSerializer(Address.objects.all(), many=True)
+        return Response(address_serializer.data, status=200)
+
+    def post(self, request):
+        address_serializer = AddressdSerializer(data=request.POST)
+        if address_serializer.is_valid():
+            new_address = address_serializer.save()
+            return Response({'new_address': new_address}, status=201)
+        else:
+            return Response({'errors': address_serializer.errors}, status=400)
+
+
+class CustomerDetailApi(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = CustomerSerializer
+    queryset = Customer.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication]
+
+
+class AddressDetailApi(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = AddressSerializer
+    queryset = Address.objects.all()
+    permission_classes = [permissions.IsAuthenticated, CustomerPermission]
+    authentication_classes = [authentication.TokenAuthentication]
