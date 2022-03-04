@@ -155,8 +155,21 @@ JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
     "site_title": "Dashboard",
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "Library",
+    "site_header": "RD-Shop-Dashboard",
     "show_ui_builder": True,
+    "icons": {
+        "auth": "fa fa-users-cog",
+        "core.User": "fa fa-user", 
+        "customer.Address": "fa fa-map-marker",
+        "customer.Customer": "fa fa-user-tie",
+        "order.OrderItem": "fa fa-shopping-bag",
+        "order.Order": "fa fa-shopping-cart",
+        "product.Category": "fa fa-bars",
+        "product.Discount": "fa fa-percent",
+        "product.Offcode": "fa fa-code",
+        "product.Products": "fa fa-product-hunt"
+
+    }
 }
 
 JAZZMIN_UI_TWEAKS = {
@@ -204,58 +217,58 @@ REST_FRAMEWORK = {
 }
 
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'detail-formatter': {
-            'format': '{levelname}|{asctime}|{funcName}|{filename}|{lineno}|{module}:{message}',
-            'style': '{'
-        },
-        'brief-formatter': {
-            'format': '%(levelname)s: %(message)s',
-            'style': '%'
-        },
-    },
-    'filters': {
-        'min-len-filter': {
-            '()': 'core.logging_filters.MinLenFilter',
-        },
-        'a-start-filter': {
-            '()': 'django.utils.log.CallbackFilter',
-            'callback': lambda record: not record.getMessage().startswith('a'),
-        }
-    },
-    'handlers': {
-        'my-console-handler': {
-            'class': 'logging.StreamHandler',  # Console print!
-        },
-        'my-file-handler': {
-            'class': 'logging.FileHandler',  # Write file!
-            'filename': BASE_DIR / 'my-log-test.log',
-            'formatter': 'brief-formatter',
-        },
-        'operator-handler': {
-            'class': 'logging.FileHandler',  # Write file!
-            'filename': BASE_DIR / 'operators.log',
-            'formatter': 'detail-formatter',
-            'filters': ['min-len-filter', 'a-start-filter']
-        }
-    },
-    'root': {
-        'handlers': ['my-console-handler'],
-        'level': 'INFO',
-    },
-    'loggers': {
-        'staff': {
-            'handlers': ['my-file-handler'],
-            'level': 'WARNING',
-            'propagate': False,  # Default: True
-        },
-        'staff.operator': {
-            'handlers': ['operator-handler'],
-            'level': 'INFO',
-            'propagate': True,
-        },
-    }
-}
+#LOGGING = {
+#    'version': 1,
+#    'disable_existing_loggers': False,
+#    'formatters': {
+#        'detail-formatter': {
+#            'format': '{levelname}|{asctime}|{funcName}|{filename}|{lineno}|{module}:{message}',
+#            'style': '{'
+#        },
+#        'brief-formatter': {
+#            'format': '%(levelname)s: %(message)s',
+#            'style': '%'
+#        },
+#    },
+#    'filters': {
+#        'min-len-filter': {
+#            '()': 'core.logging_filters.MinLenFilter',
+#        },
+#        'a-start-filter': {
+#            '()': 'django.utils.log.CallbackFilter',
+#            'callback': lambda record: not record.getMessage().startswith('a'),
+#        }
+#    },
+#    'handlers': {
+#        'my-console-handler': {
+#            'class': 'logging.StreamHandler',  # Console print!
+#        },
+#        'my-file-handler': {
+#            'class': 'logging.FileHandler',  # Write file!
+#            'filename': BASE_DIR / 'my-log-test.log',
+#            'formatter': 'brief-formatter',
+#        },
+#        'operator-handler': {
+#            'class': 'logging.FileHandler',  # Write file!
+#            'filename': BASE_DIR / 'operators.log',
+#            'formatter': 'detail-formatter',
+#            'filters': ['min-len-filter', 'a-start-filter']
+#        }
+#    },
+#    'root': {
+##        'handlers': ['my-console-handler'],
+##        'level': 'INFO',
+##    },
+##    'loggers': {
+##        'staff': {
+##            'handlers': ['my-file-handler'],
+##            'level': 'WARNING',
+##            'propagate': False,  # Default: True
+##        },
+##        'staff.operator': {
+##            'handlers': ['operator-handler'],
+##            'level': 'INFO',
+##            'propagate': True,
+##        },
+##    }
+#}
