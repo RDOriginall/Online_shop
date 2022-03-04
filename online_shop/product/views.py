@@ -19,6 +19,8 @@ class ProductDetailView(generic.DetailView):
     model = Product
     fields = "__all__"
     template_name = "product/product_detail.html"
+    context_object_name = "product"
+    pk_url_kwarg = "pk"
 
 
 class CategoryListView(generic.ListView):
