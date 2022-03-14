@@ -8,14 +8,14 @@ admin.site.register(OffCode)
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("__all__")
-    list_filter = ("root")
-    raw_id_fields = ("name_en")
-    ordering = ("name_en")
+    list_display = ("name_en", "name_fa", "root")
+    list_filter = ("root",)
+    raw_id_fields = ("root",)
+    ordering = ("name_en",)
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("__all__")
-    list_filter = ("category", "brand_en", "brand_fa")
+    list_display = ("name_en", "name_fa", "brand_en", "brand_fa", "price", "category", "discount")
+    list_filter = ("category", "brand_en")
     search_fields = ("name_en", "name_fa")
-    ordering = ("name_en")
+    ordering = ("name_en",)
