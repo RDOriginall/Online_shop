@@ -13,3 +13,9 @@ class CategoryAdmin(admin.ModelAdmin):
     raw_id_fields = ("name_en")
     ordering = ("name_en")
 
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ("__all__")
+    list_filter = ("category", "brand_en", "brand_fa")
+    search_fields = ("name_en", "name_fa")
+    ordering = ("name_en")
